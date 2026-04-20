@@ -1,5 +1,5 @@
 {
-    "name": "dakshraman/browser-guard",
+    "name": "dakshraman/laravel-browser-guard",
     "description": "A Laravel package to discourage right-click, shortcut keys, and casual DevTools access in the browser.",
     "type": "library",
     "license": "MIT",

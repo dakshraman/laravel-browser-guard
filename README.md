@@ -13,7 +13,7 @@ This package does **not** provide real security. Anything running in the browser
 ## Installation
 
 ```bash
-composer require dakshraman/browser-guard
+composer require dakshraman/laravel-browser-guard
 php artisan browser-guard:install
 ```
 
