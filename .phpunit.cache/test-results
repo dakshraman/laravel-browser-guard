@@ -1,0 +1,1 @@
+{"version":"pest_2.36.1","defects":[],"times":{"P\\Tests\\Feature\\BrowserGuardTest::__pest_evaluable_it_loads_the_browser_guard_configuration":0.002,"P\\Tests\\Feature\\BrowserGuardTest::__pest_evaluable_it_does_not_render_the_script_if_disabled":0.196,"P\\Tests\\Feature\\BrowserGuardTest::__pest_evaluable_it_renders_the_browser_guard_script_directive_if_in_global_mode":0.014}}

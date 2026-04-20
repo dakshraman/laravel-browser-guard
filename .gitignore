@@ -1,0 +1,23 @@
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Laravel 5 & Lumen Exceptions
+/public/storage
+/public/hot
+
+# Composer
+/composer.lock
+
+# IDE / System
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+Zone.Identifier
+
+# Tests
+/phpunit.xml
+/coverage/
+.pest/
