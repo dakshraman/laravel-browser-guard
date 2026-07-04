@@ -51,5 +51,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "test": "pest --no-coverage"
     }
 }

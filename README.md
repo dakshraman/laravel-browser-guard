@@ -10,6 +10,11 @@ A Laravel package that discourages:
 
 This package does **not** provide real security. Anything running in the browser can be bypassed by a determined user. Use it only as a UI deterrent, not as a protection layer for sensitive data.
 
+## Requirements
+
+- PHP 8.1+
+- Laravel 10, 11, 12, or 13
+
 ## Installation
 
 ```bash
@@ -17,7 +22,51 @@ composer require dakshraman/laravel-browser-guard
 php artisan browser-guard:install
 ```
 
-Or publish manually:
+The install command will publish config and assets, then walk you through configuration interactively:
+
+```
+Which guards would you like to enable?
+
+ Block right-click / context menu? (yes/no) [yes]:
+ > yes
+ Block keyboard shortcuts (F12, Ctrl+U, etc.)? (yes/no) [yes]:
+ > yes
+ Detect DevTools opening? (yes/no) [yes]:
+ > yes
+
+How should Browser Guard run?
+ [global]   - Script loads on every page with @browserGuardScripts
+ [middleware]- Script loads only on routes using browser.guard middleware
+
+ Select mode [global]:
+ [0] global
+ [1] middleware
+ > 0
+
+ Show alert when a guard is triggered? (yes/no) [yes]:
+ > yes
+ Alert message [This action is disabled on this page.]:
+ >
+
+ What should happen when DevTools is detected?
+ DevTools action [alert]:
+ [0] alert
+ [1] redirect
+ [2] blank
+ > 0
+
+Configuration saved to config/browser-guard.php
+```
+
+### Skip interactive prompts
+
+For CI or scripted installs, use `--skip-config`:
+
+```bash
+php artisan browser-guard:install --skip-config
+```
+
+### Manual publish
 
 ```bash
 php artisan vendor:publish --tag=browser-guard-config
@@ -36,8 +85,6 @@ In your main Blade layout, just before `</body>`:
 
 ### 1. Global mode
 
-In `config/browser-guard.php`:
-
 ```php
 'mode' => 'global',
 ```
@@ -45,8 +92,6 @@ In `config/browser-guard.php`:
 The script will load wherever `@browserGuardScripts` exists.
 
 ### 2. Middleware mode
-
-In `config/browser-guard.php`:
 
 ```php
 'mode' => 'middleware',
@@ -62,17 +107,32 @@ Route::middleware('browser.guard')->group(function () {
 });
 ```
 
-## Useful config
+The middleware also sets `no-cache` headers to prevent browser caching of protected pages.
+
+## Configuration
 
 ```php
+// Master switch
 'enabled' => true,
+
+// Mode: 'global' or 'middleware'
+'mode' => 'global',
+
+// Guards
 'block_right_click' => true,
 'block_shortcuts' => true,
 'detect_devtools' => true,
+
+// Alert UI
 'show_alert' => true,
 'alert_message' => 'This action is disabled on this page.',
-'devtools_action' => 'alert', // alert | redirect | blank
+
+// DevTools handling: 'alert' | 'redirect' | 'blank'
+'devtools_action' => 'alert',
+'devtools_message' => 'Developer tools detected. This page is protected.',
 'devtools_redirect_url' => '/',
+'devtools_check_interval' => 1000,
+'devtools_threshold' => 160,
 ```
 
 ## Custom shortcuts
@@ -96,6 +156,12 @@ Route::middleware('browser.guard')->group(function () {
 ],
 ```
 
+## Testing
+
+```bash
+composer test
+```
+
 ## File structure
 
 ```text
@@ -115,16 +181,6 @@ browser-guard/
     └── Middleware/
         └── BrowserGuardMiddleware.php
 ```
-
-## Suggested improvements
-
-If you want this package to feel more production-ready, the next upgrades are:
-
-- add tests with Orchestra Testbench
-- add a facade or helper for runtime toggling
-- add a small toast UI instead of `alert()`
-- add IP/user-based exemptions
-- add an inline-script fallback when published assets are missing
 
 ## License
 
