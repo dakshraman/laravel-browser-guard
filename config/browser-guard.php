@@ -10,6 +10,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Auto-inject
+    |--------------------------------------------------------------------------
+    | When true, the middleware is registered globally and the script is
+    | automatically injected into every HTML response. No need to add
+    | @browserGuardScripts to your layouts.
+    */
+    'inject' => env('BROWSER_GUARD_INJECT', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Mode
     |--------------------------------------------------------------------------
     | global     => script is rendered anywhere @browserGuardScripts is used

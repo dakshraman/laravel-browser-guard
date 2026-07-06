@@ -38,5 +38,9 @@ class BrowserGuardServiceProvider extends ServiceProvider
         });
 
         $router->aliasMiddleware('browser.guard', BrowserGuardMiddleware::class);
+
+        if (config('browser-guard.inject', true)) {
+            $router->pushMiddlewareToGroup('web', BrowserGuardMiddleware::class);
+        }
     }
 }
